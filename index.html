@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kirby Clicker</title>
+    <link rel="icon" href="images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        background-image: url("images/background.jpeg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        padding: 0%;
+        padding-top: 0%;
+        margin: 0%;
+        margin-top: 0%;
+      }
+      .title-head {
+        background-image: none;
+        background-color: aquamarine;
+        margin: 0%;
+        margin-top: 0%;
+      }
+      .shopbuttons {
+        background-color: #FF82B2;
+        border-radius: 10px;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="shop" style="display: none; position: absolute; top: 0; right: 0; background-color: rgba(167, 167, 167, 0.438); width: 100vw; height: 100vh;">
+      <br>
+      <button onclick="document.getElementById('shop').style.display = 'none';" style="background-color: red; color: white; border-radius: 16px; width: 32px; height: 32px; font-size: large; float: right;">&times</button>
+      <center>
+        <h1>Welcome To The Shop</h1>
+      </center>
+      <h3 id="kirbyprclick">Kirby Per Click: 1</h3>
+      <h3 id="kirbyprsec">Kirby Per Second: 0</h3>
+      <button onclick="checkshopitem(0, 25, 1, 0, 'item0')">+1 Kirby Per Click. Price: <span id="item0">50</span> Clicks</button>
+      <button onclick="checkshopitem(1, 100, 0, 1, 'item1')">+1 Kirby Per Second. Price: <span id="item1">250</span> Clicks</button>
+    </div>
+    <div id="gamescreen">
+      <div id="title-head" class="title-head">
+        <br>
+        <center>
+          <h1 style="color: #FF82B2;">Kirby Clicker</h1>
+          <h3 id="kirbyclicks" style="color: #FF82B2;">Clicks: 0</h3>
+          <button onclick="document.getElementById('shop').style.display = 'block';" class="shopbuttons">&#8192<br>&#8192&#8192Shop&#8192&#8192<br>&#8192</button><br>
+          <button onclick="alert('You Got The Secret! :) :P (>*-*)> <(*-*<)')" style="color: aquamarine; background-color: aquamarine; border: none;">Secret Button</button>
+        </center>
+      </div>
+      <br>
+      <br>
+      <br>
+      <center>
+        <input type="image" src="images/clickitem1.png" onclick="kirbyclick()">
+      </center>
+    </div>
+  </body>
+  <script>
+    var kirbyperclick = 1
+    var kirbypersec = 0
+    var clicks = 0
+    const shopcosts = [50, 250]
+    function updatescore() {
+      document.getElementById("kirbyclicks").innerHTML = "Clicks: "+clicks
+      document.getElementById("kirbyprsec").innerHTML = "Kirby Per Second: "+kirbypersec
+      document.getElementById("kirbyprclick").innerHTML = "Kirby Per click: "+kirbyperclick
+    }
+    function kirbyclick() {
+      clicks += kirbyperclick
+      updatescore()
+    }
+    function checkshopitem(itemnum, pricechange, clickchange, secchange, itemid) {
+      price = shopcosts[itemnum]
+      if (clicks > price-1) {
+        clicks -= price
+        shopcosts[itemnum] += pricechange
+        kirbyperclick += clickchange
+        kirbypersec += secchange
+        document.getElementById(itemid).innerHTML = shopcosts[itemnum]
+        updatescore()
+      }
+      else {
+        alert("You Dont Have Enough Clicks. You Need "+(price-clicks)+" More.")
+      }
+    }
+    setInterval(function(){
+      clicks += kirbypersec
+      updatescore()
+    }, 1000)
+  </script>
+</html>
