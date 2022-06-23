@@ -101,15 +101,15 @@
       clearInterval(movetimer)
       itemx = -50
       timerb = 0
-      itemy = randrange(0, (window.screen.height-300))
+      itemy = randrange(0, window.innerHeight)
       movetimer = setInterval(function() {
         timerb += 0.01
         offsety = (-10+(20*(Math.sin(timerb*3))))
-        windowwidth = window.screen.width
+        windowwidth = window.innerWidth
         itemx += 0.5
         popstar.style.top = (itemy + offsety)+"px"
         popstar.style.left = itemx+"px"
-        if (itemx > (windowwidth-710)) {
+        if (itemx > (windowwidth-30)) {
           popstar.setAttribute("type", "hidden")
           clearInterval(movetimer)
         }
@@ -182,8 +182,8 @@
     setInterval (function(){
       addtimesec = randrange(1, 10)
       popstar.setAttribute("type", "image")
-      movepopstar()
-      pausetime = 10000+(addtimesec*1000)
+     movepopstar()
+     pausetime = 10000+(addtimesec*1000)
     },pausetime)
   </script>
 </html>
