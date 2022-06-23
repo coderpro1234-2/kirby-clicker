@@ -91,7 +91,7 @@
     var kirbypersecio = 0
     var clicktimes = 1
     var addtimesec = 0
-    var pausetime = 10000
+    var pausetime = 60000
     var movetimer = ""
     const shopcosts = [50, 250, 8000, 10000]
     function randrange(min, max) {
@@ -180,10 +180,10 @@
       }
     },1)
     setInterval (function(){
-      addtimesec = randrange(1, 10)
+      addtimesec = randrange(1, 120)
       popstar.setAttribute("type", "image")
      movepopstar()
-     pausetime = 10000+(addtimesec*1000)
+     pausetime = 60000+(addtimesec*1000)
     },pausetime)
   </script>
 </html>
