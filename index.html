@@ -50,10 +50,10 @@
       <br>
       <button onclick="document.getElementById('shop').style.display = 'none';" style="background-color: red; color: white; border-radius: 16px; width: 32px; height: 32px; font-size: large; float: right;">&times</button>
       <center>
-        <h1>Welcome To The Shop</h1>
+        <h1 style="color: white;">Welcome To The Shop</h1>
       </center>
-      <h3 id="kirbyprclick">Kirby Per Click: 1</h3>
-      <h3 id="kirbyprsec">Kirby Per Second: 0</h3>
+      <h3 style="color: white;" id="kirbyprclick">Kirby Per Click: 1 x 1</h3>
+      <h3 style="color: white;" id="kirbyprsec">Kirby Per Second: 0 x 1</h3>
       <button style="height: 32px;" class="shopbuttons" onclick="checkshopitem(0, 25, 1, 0, 'item0', 0, 0)">+1 Kirby Per Click. Price: <span id="item0">50</span> Clicks</button>
       <button style="height: 32px;" class="shopbuttons" onclick="checkshopitem(1, 100, 0, 1, 'item1', 0, 0)">+1 Kirby Per Second. Price: <span id="item1">250</span> Clicks</button><br><br>
       <button style="height: 32px;" class="shopbuttons" onclick="checkshopitem(2, 5000, 0, 0, 'item2', 1, 0)">+1 Kirby Per Click Every 10 Seconds. Price: <span id="item2">8000</span> Clicks</button><br><br>
@@ -93,7 +93,7 @@
     function updatescore() {
       document.getElementById("kirbyclicks").innerHTML = "Clicks: "+clicks
       document.getElementById("kirbyprsec").innerHTML = "Kirby Per Second: "+kirbypersec+" x "+clicktimes
-      document.getElementById("kirbyprclick").innerHTML = "Kirby Per click: "+kirbyperclick+" x "+clicktimes
+      document.getElementById("kirbyprclick").innerHTML = "Kirby Per Click: "+kirbyperclick+" x "+clicktimes
     }
     function kirbyclick() {
       clicks += kirbyperclick*clicktimes
