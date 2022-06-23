@@ -48,7 +48,7 @@
     </audio>
     <div id="shop" class="disable-select" style="z-index: 5; display: none; position: absolute; top: 0; right: 0; background-color: rgba(167, 167, 167, 0.438); width: 100vw; height: 100vh;">
       <br>
-      <button id="closeshop" onclick="document.getElementById('shop').style.display = 'none';" style="background-color: red; color: white; border-radius: 16px; width: 32px; height: 32px; font-size: large; float: right;">&times</button>
+      <button id="closeshop" onclick="document.getElementById('shop').style.display = 'none'; maintext.style.color = '#FF82B2'" style="background-color: red; color: white; border-radius: 16px; width: 32px; height: 32px; font-size: large; float: right;">&times</button>
       <center>
         <h1 style="color: white;">Welcome To The Shop</h1>
       </center>
@@ -59,16 +59,25 @@
       <button id="shopitem3" style="height: 32px;" class="shopbuttons" onclick="checkshopitem(2, 5000, 0, 0, 'item2', 1, 0)">+1 Kirby Per Click Every 10 Seconds. Price: <span id="item2">8000</span> Clicks</button><br><br>
       <button id="shopitem4" style="height: 32px;" class="shopbuttons" onclick="checkshopitem(3, 5001, 0, 0, 'item3', 0, 1)">+1 Kirby Per Second Every 10 Seconds. Price: <span id="item3">10000</span> Clicks</button><br><br>
     </div>
+    <div id="achievements" class="disable-select" style="z-index: 5; display: none; position: absolute; top: 0; right: 0; background-color: rgba(167, 167, 167, 0.438); width: 100vw; height: 100vh;">
+      <br>
+      <button id="closeachievements" onclick="achievements.style.display = 'none'; maintext.style.color = '#FF82B2'" style="background-color: red; color: white; border-radius: 16px; width: 32px; height: 32px; font-size: large; float: right;">&times</button>
+      <center>
+        <h1 style="color: white;">Achievements</h1>
+      </center>
+      <h3 style="color: white;" id="totalkirbyclicks">Total Kirby Clicks: 0</h3>
+    </div>
     <div id="gamescreen" class="disable-select">
+      <input type="image" onclick="achievements.style.display = 'block'; maintext.style.color = 'rgba(0, 0, 0, 0)';" id="openachievements" src="images/trophy.png" style="position: absolute; bottom: 0; right: 0;">
       <input onclick="clearInterval(movetimer); popstar.setAttribute('type', 'hidden'); clicks += 15; updatescore()" style="z-index: 1; position: absolute;" id="popstar" type="hidden" src="images/popstar.png">
       <div id="title-head" class="title-head">
         <input style="z-index: 0; position: absolute; top: 20px; left: 12px;" type="image" src="images/disk.png" id="musicdisk" onclick="checkmusic(); //music1.play()">
         <br>
         <label style="color: #FF82B2; position: absolute; top: 0; left: 8px;">&#8192&#8192Music?</label>
         <center>
-          <h1 style="color: #FF82B2;">Kirby Clicker</h1>
+          <h1 id="maintext" style="color: #FF82B2;">Kirby Clicker</h1>
           <h3 id="kirbyclicks" style="color: #FF82B2;">Clicks: 0</h3>
-          <button id="entershop" onclick="document.getElementById('shop').style.display = 'block';" class="shopbuttons">&#8192<br>&#8192&#8192Shop&#8192&#8192<br>&#8192</button><br>
+          <button id="entershop" onclick="document.getElementById('shop').style.display = 'block'; maintext.style.color = 'rgba(0, 0, 0, 0)'" class="shopbuttons">&#8192<br>&#8192&#8192Shop&#8192&#8192<br>&#8192</button><br>
           <button class="enable-select" onclick="//alert('You Got The Secret! :) :P (>*-*)> <(*-*<)')" style="color: rgba(127, 255, 212, 0); background-color: rgba(127, 255, 212, 0); border: none;">Secret Button</button>
         </center>
       </div>
@@ -76,7 +85,7 @@
       <br>
       <br>
       <center>
-        <input style="z-index: 0;" type="image" src="images/clickitem1.png" id="gamebutton" onclick="kirbyclick(); //music1.play()">
+        <input style="z-index: 0;" type="image" src="images/clickitem1.png" id="gamebutton" onclick="kirbyclick(); kirbyclicks += 1; updatescore()">
       </center>
     </div>
   </body>
@@ -93,6 +102,7 @@
     var addtimesec = 0
     var pausetime = 60000
     var movetimer = ""
+    var kirbyclicks = 0
     const shopcosts = [50, 250, 8000, 10000]
     function randrange(min, max) {
       return Math.floor(Math.random() * (max - min + 1) ) + min;
@@ -119,6 +129,7 @@
       document.getElementById("kirbyclicks").innerHTML = "Clicks: "+clicks
       document.getElementById("kirbyprsec").innerHTML = "Kirby Per Second: "+kirbypersec+" x "+clicktimes
       document.getElementById("kirbyprclick").innerHTML = "Kirby Per Click: "+kirbyperclick+" x "+clicktimes
+      document.getElementById("totalkirbyclicks").innerHTML = "Total Kirby Clicks: "+kirbyclicks
     }
     function kirbyclick() {
       clicks += kirbyperclick*clicktimes
@@ -182,8 +193,8 @@
     setInterval (function(){
       addtimesec = randrange(1, 120)
       popstar.setAttribute("type", "image")
-     movepopstar()
-     pausetime = 60000+(addtimesec*1000)
+      movepopstar()
+      pausetime = 60000+(addtimesec*1000)
     },pausetime)
   </script>
 </html>
