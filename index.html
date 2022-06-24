@@ -65,20 +65,21 @@
       <center>
         <h1 style="color: white;">Achievements</h1>
       </center>
-      <h3 style="color: white;" id="totalkirbyclicks">Total Kirby Clicks: 0</h3>
+      <h3 style="color: white;" id="totalkirbyclicks">Total Times Kirby's Been Clicked: 0</h3>
+      <h3 style="color: white;" id="totalkirbys">Total clicks: 0</h3>
     </div>
     <div id="gamescreen" class="disable-select">
       <input type="image" onclick="achievements.style.display = 'block'; maintext.style.color = 'rgba(0, 0, 0, 0)';" id="openachievements" src="images/trophy.png" style="position: absolute; bottom: 0; right: 0;">
-      <input onclick="clearInterval(movetimer); popstar.setAttribute('type', 'hidden'); clicks += 15; updatescore()" style="z-index: 1; position: absolute;" id="popstar" type="hidden" src="images/popstar.png">
+      <input onclick="clearInterval(movetimer); popstar.setAttribute('type', 'hidden'); clicks += 15; totalclicks += 15; updatescore()" style="z-index: 1; position: absolute;" id="popstar" type="hidden" src="images/popstar.png">
       <div id="title-head" class="title-head">
         <input style="z-index: 0; position: absolute; top: 20px; left: 12px;" type="image" src="images/disk.png" id="musicdisk" onclick="checkmusic(); //music1.play()">
         <br>
         <label style="color: #FF82B2; position: absolute; top: 0; left: 8px;">&#8192&#8192Music?</label>
         <center>
           <h1 id="maintext" style="color: #FF82B2;">Kirby Clicker</h1>
-          <h3 id="kirbyclicks" style="color: #FF82B2;">Clicks: 0</h3>
+          <h3 id="kirbyclicks1" style="color: #FF82B2;">Clicks: 0</h3>
           <button id="entershop" onclick="document.getElementById('shop').style.display = 'block'; maintext.style.color = 'rgba(0, 0, 0, 0)'" class="shopbuttons">&#8192<br>&#8192&#8192Shop&#8192&#8192<br>&#8192</button><br>
-          <button class="enable-select" onclick="//alert('You Got The Secret! :) :P (>*-*)> <(*-*<)')" style="color: rgba(127, 255, 212, 0); background-color: rgba(127, 255, 212, 0); border: none;">Secret Button</button>
+          <button class="enable-select" onclick="" style="color: rgba(127, 255, 212, 0); background-color: rgba(127, 255, 212, 0); border: none;">Secret Button</button>
         </center>
       </div>
       <br>
@@ -103,6 +104,7 @@
     var pausetime = 60000
     var movetimer = ""
     var kirbyclicks = 0
+    var totalclicks = 0
     const shopcosts = [50, 250, 8000, 10000]
     function randrange(min, max) {
       return Math.floor(Math.random() * (max - min + 1) ) + min;
@@ -126,13 +128,15 @@
       }, 1)
     }
     function updatescore() {
-      document.getElementById("kirbyclicks").innerHTML = "Clicks: "+clicks
+      document.getElementById("kirbyclicks1").innerHTML = "Clicks: "+clicks
       document.getElementById("kirbyprsec").innerHTML = "Kirby Per Second: "+kirbypersec+" x "+clicktimes
       document.getElementById("kirbyprclick").innerHTML = "Kirby Per Click: "+kirbyperclick+" x "+clicktimes
-      document.getElementById("totalkirbyclicks").innerHTML = "Total Kirby Clicks: "+kirbyclicks
+      document.getElementById("totalkirbyclicks").innerHTML = "Total Times Kirby's Been Clicked: "+kirbyclicks
+      document.getElementById("totalkirbys").innerHTML = "Total Clicks: "+totalclicks
     }
     function kirbyclick() {
       clicks += kirbyperclick*clicktimes
+      totalclicks += kirbyperclick*clicktimes
       updatescore()
     }
     function checkshopitem(itemnum, pricechange, clickchange, secchange, itemid, clickio, secio) {
