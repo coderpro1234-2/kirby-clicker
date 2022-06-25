@@ -242,6 +242,7 @@
       updatescore()
     }, 10000)
     setInterval (function(){
+      setCookie("kirbyclicker", [clicks,kirbyclicks,kirbypersec,kirbyperclickio,kirbypersecio,[shopcosts[0],shopcosts[1],shopcosts[2],shopcosts[3]],kirbyclicks,totalclicks,[achieve[0]]], 99999)
       blurallbuttons()
       timer += 0.001
       document.getElementById("gamebutton").style.transform = 'rotate('+(-10+(20*(Math.sin(timer*3))))+'deg)'
@@ -251,7 +252,6 @@
       }
     },1)
     setInterval (function(){
-      setCookie("kirbyclicker", [clicks,kirbyclicks,kirbypersec,kirbyperclickio,kirbypersecio,[shopcosts[0],shopcosts[1],shopcosts[2],shopcosts[3]],kirbyclicks,totalclicks,[achieve[0]]], 99999)
       addtimesec = randrange(1, 120)
       popstar.setAttribute("type", "image")
       movepopstar()
