@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kirby Clicker</title>
+    <link rel="icon" href="images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        background-image: url("images/background.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        padding: 0%;
+        padding-top: 0%;
+        margin: 0%;
+        margin-top: 0%;
+      }
+      .title-head {
+        background-image: none;
+        background-color: rgba(127, 255, 212, 0);
+        margin: 0%;
+        margin-top: 0%;
+      }
+      .shopbuttons {
+        background-color: #FF82B2;
+        border-radius: 10px;
+        border: none;
+      }
+      .disable-select {
+        user-select: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+      }
+      .enable-select {
+        user-select: text;
+        -webkit-user-select: text;
+        -khtml-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+      }
+    </style>
+  </head>
+  <body onload="checkCookie()">
+    <audio id="music1" loop>
+      <source src="music/background.mp3" type="audio/mpeg">
+    </audio>
+    <div id="shop" class="disable-select" style="z-index: 5; display: none; position: absolute; top: 0; right: 0; background-color: rgba(167, 167, 167, 0.438); width: 100vw; height: 100vh;">
+      <br>
+      <button id="closeshop" onclick="document.getElementById('shop').style.display = 'none'; maintext.style.color = '#FF82B2'" style="background-color: red; color: white; border-radius: 16px; width: 32px; height: 32px; font-size: large; float: right;">&times</button>
+      <center>
+        <h1 style="color: white;">Welcome To The Shop</h1>
+      </center>
+      <h3 style="color: white;" id="kirbyprclick">Kirby Per Click: 1 x 1</h3>
+      <h3 style="color: white;" id="kirbyprsec">Kirby Per Second: 0 x 1</h3>
+      <button id="shopitem1" style="height: 32px;" class="shopbuttons" onclick="checkshopitem(0, 25, 1, 0, 'item0', 0, 0)">+1 Kirby Per Click. Price: <span id="item0">50</span> Clicks</button>
+      <button id="shopitem2" style="height: 32px;" class="shopbuttons" onclick="checkshopitem(1, 100, 0, 1, 'item1', 0, 0)">+1 Kirby Per Second. Price: <span id="item1">250</span> Clicks</button><br><br>
+      <button id="shopitem3" style="height: 32px;" class="shopbuttons" onclick="checkshopitem(2, 5000, 0, 0, 'item2', 1, 0)">+1 Kirby Per Click Every 10 Seconds. Price: <span id="item2">8000</span> Clicks</button><br><br>
+      <button id="shopitem4" style="height: 32px;" class="shopbuttons" onclick="checkshopitem(3, 5001, 0, 0, 'item3', 0, 1)">+1 Kirby Per Second Every 10 Seconds. Price: <span id="item3">10000</span> Clicks</button><br><br>
+    </div>
+    <div id="achievements" class="disable-select" style="z-index: 5; display: none; position: absolute; top: 0; right: 0; background-color: rgba(167, 167, 167, 0.438); width: 100vw; height: 100vh;">
+      <br>
+      <button id="closeachievements" onclick="achievements.style.display = 'none'; maintext.style.color = '#FF82B2'" style="background-color: red; color: white; border-radius: 16px; width: 32px; height: 32px; font-size: large; float: right;">&times</button>
+      <center>
+        <h1 style="color: white;">Achievements</h1>
+      </center>
+      <h3 style="color: white;" id="totalkirbyclicks">Total Times Kirby's Been Clicked: 0</h3>
+      <h3 style="color: white;" id="totalkirbys">Total Clicks: 0</h3>
+      <button id="achievement1" class="shopbuttons" style="background-color: #ff82b271;">Get 1 Million Clicks Without Clicking Kirby</button>
+    </div>
+    <div id="gamescreen" class="disable-select">
+      <input type="image" onclick="achievements.style.display = 'block'; maintext.style.color = 'rgba(0, 0, 0, 0)';" id="openachievements" src="images/trophy.png" style="position: absolute; bottom: 0; right: 0;">
+      <input onclick="clearInterval(movetimer); popstar.setAttribute('type', 'hidden'); clicks += 15; totalclicks += 15; updatescore()" style="z-index: 1; position: absolute;" id="popstar" type="hidden" src="images/popstar.png">
+      <div id="title-head" class="title-head">
+        <input style="z-index: 0; position: absolute; top: 20px; left: 12px;" type="image" src="images/disk.png" id="musicdisk" onclick="checkmusic(); //music1.play()">
+        <br>
+        <label style="color: #FF82B2; position: absolute; top: 0; left: 8px;">&#8192&#8192Music?</label>
+        <center>
+          <h1 id="maintext" style="color: #FF82B2;">Kirby Clicker</h1>
+          <h3 id="kirbyclicks1" style="color: #FF82B2;">Clicks: 0</h3>
+          <button id="entershop" onclick="document.getElementById('shop').style.display = 'block'; maintext.style.color = 'rgba(0, 0, 0, 0)'" class="shopbuttons">&#8192<br>&#8192&#8192Shop&#8192&#8192<br>&#8192</button><br>
+          <button class="enable-select" onclick="" style="color: rgba(127, 255, 212, 0); background-color: rgba(127, 255, 212, 0); border: none;">Secret Button</button>
+        </center>
+      </div>
+      <br>
+      <br>
+      <br>
+      <center>
+        <input style="z-index: 0;" type="image" src="images/clickitem1.png" id="gamebutton" onclick="kirbyclick(); kirbyclicks += 1; updatescore()">
+      </center>
+    </div>
+  </body>
+  <script>
+    var timer = 0
+    var timer2 = 0
+    var musicplay = 0
+    var kirbyperclick = 1
+    var kirbypersec = 0
+    var clicks = 0
+    var kirbyperclickio = 0
+    var kirbypersecio = 0
+    var clicktimes = 1
+    var addtimesec = 0
+    var pausetime = 60000
+    var movetimer = ""
+    var kirbyclicks = 0
+    var totalclicks = 0
+    const shopcosts = [50, 250, 8000, 10000]
+    const achieve = [0]
+    function setupclicker(clickerlist) {
+      clicks = clickerlist[0]
+      kirbyperclick = clickerlist[1]
+      kirbypersec = clickerlist[2]
+      kirbyperclickio = clickerlist[3]
+      kirbypersecio = clickerlist[4]
+      shopcosts = clickerlist[5]
+      kirbyclicks = clickerlist[6]
+      totalclicks = clickerlist[7]
+      achieve = clickerlist[8]
+      updatescore()
+    }
+    function setCookie(cname,cvalue,exdays) {
+      const d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      let expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+    function checkCookie() {
+      let user = getCookie("kirbyclicker");
+      if (user != "") {
+        setupclicker(user)
+      } else {
+      }
+    }
+    function randrange(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) ) + min;
+    }
+    function movepopstar() {
+      clearInterval(movetimer)
+      itemx = -50
+      timerb = 0
+      itemy = randrange(0, window.innerHeight)
+      movetimer = setInterval(function() {
+        timerb += 0.01
+        offsety = (-10+(20*(Math.sin(timerb*3))))
+        windowwidth = window.innerWidth
+        itemx += 0.5
+        popstar.style.top = (itemy + offsety)+"px"
+        popstar.style.left = itemx+"px"
+        if (itemx > (windowwidth-30)) {
+          popstar.setAttribute("type", "hidden")
+          clearInterval(movetimer)
+        }
+      }, 1)
+    }
+    function updatescore() {
+      document.getElementById("kirbyclicks1").innerHTML = "Clicks: "+clicks
+      document.getElementById("kirbyprsec").innerHTML = "Kirby Per Second: "+kirbypersec+" x "+clicktimes
+      document.getElementById("kirbyprclick").innerHTML = "Kirby Per Click: "+kirbyperclick+" x "+clicktimes
+      document.getElementById("totalkirbyclicks").innerHTML = "Total Times Kirby's Been Clicked: "+kirbyclicks
+      document.getElementById("totalkirbys").innerHTML = "Total Clicks: "+totalclicks
+      if (kirbyclicks == 0 && totalclicks > 999999) {
+        achieve[0] = 1
+      }
+      if (achieve[0] == 1) {
+        document.getElementById("achievement1").style.backgroundColor = "#FF82B2"
+      }
+    }
+    function kirbyclick() {
+      clicks += kirbyperclick*clicktimes
+      totalclicks += kirbyperclick*clicktimes
+      updatescore()
+    }
+    function checkshopitem(itemnum, pricechange, clickchange, secchange, itemid, clickio, secio) {
+      price = shopcosts[itemnum]
+      if (clicks > price-1) {
+        clicks -= price
+        shopcosts[itemnum] += pricechange
+        kirbyperclick += clickchange
+        kirbypersec += secchange
+        kirbyperclickio += clickio
+        kirbypersecio += secio
+        document.getElementById(itemid).innerHTML = shopcosts[itemnum]
+        updatescore()
+      }
+      else {
+        alert("You Dont Have Enough Clicks. You Need "+(price-clicks)+" More.")
+      }
+    }
+    function checkmusic() {
+      if (musicplay == 0) {
+        music1.play()
+        musicplay = 1
+      }
+      else {
+        music1.pause()
+        musicplay = 0
+      }
+    }
+    function blurallbuttons() {
+      gamebutton.blur()
+      musicdisk.blur()
+      entershop.blur()
+      closeshop.blur()
+      openachievements.blur()
+      closeachievements.blur()
+      i = 1
+      while (i < (shopcosts.length)+1) {
+        document.getElementById("shopitem"+i).blur()
+        i ++
+      }
+      i = 1
+      while (i < 2) {
+        document.getElementById("achievement"+i).blur()
+        i ++
+      }
+    }
+    setInterval(function(){
+      clicks += kirbypersec*clicktimes
+      updatescore()
+    }, 1000)
+    setInterval(function(){
+      kirbyperclick += kirbyperclickio
+      kirbypersec += kirbypersecio
+      updatescore()
+    }, 10000)
+    setInterval (function(){
+      blurallbuttons()
+      timer += 0.001
+      document.getElementById("gamebutton").style.transform = 'rotate('+(-10+(20*(Math.sin(timer*3))))+'deg)'
+      if (musicplay == 1) {
+        timer2 += 1
+        document.getElementById("musicdisk").style.transform = 'rotate('+timer2+'deg)'
+      }
+    },1)
+    setInterval (function(){
+      setCookie("kirbyclicker", [clicks,kirbyclicks,kirbypersec,kirbyperclickio,kirbypersecio,[shopcosts[0],shopcosts[1],shopcosts[2],shopcosts[3]],kirbyclicks,totalclicks,[achieve[0]]], 99999)
+      addtimesec = randrange(1, 120)
+      popstar.setAttribute("type", "image")
+      movepopstar()
+      pausetime = 60000+(addtimesec*1000)
+    },pausetime)
+  </script>
+</html>
