@@ -26,6 +26,14 @@
         border-radius: 10px;
         border: none;
       }
+      .defbutton {
+        background-color: #FF82B2;
+        color: black;
+        width: auto;
+        height: auto;
+        border: 2px solid black;
+        border-radius: 10px;
+}
       .disable-select {
         user-select: none;
         -webkit-user-select: none;
@@ -43,6 +51,7 @@
     </style>
   </head>
   <body onload="">
+    <button class="defbutton" onclick="window.location.href = defurl+'main/'" style="position: absolute; top: 20px; right: 10px; padding: 4px;">Home</button>
     <audio id="music1" loop>
       <source src="music/background.mp3" type="audio/mpeg">
     </audio>
@@ -91,6 +100,7 @@
     </div>
   </body>
   <script>
+    var defurl = 'https://coderpro1234-2.github.io/'
     var timer = 0
     var timer2 = 0
     var musicplay = 0
